@@ -3,224 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הזמנה לחתונה - ישראל יעקב & מלכה</title>
+    <title>הזמנה לחתונה</title>
     <style>
-        /* עיצוב כללי ורקע */
+        /* עיצוב רקע כללי */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fdfbf7;
-            color: #4a4a4a;
+            background-color: #fcfaf6;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-        }
-
-        /* כרטיס ההזמנה המרכזי */
-        .invitation-card {
-            background-color: #ffffff;
-            border: 1px solid #e2d1b9;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            max-width: 600px;
-            width: 100%;
-            padding: 40px 30px;
-            text-align: center;
-            border-radius: 4px;
-            position: relative;
             box-sizing: border-box;
         }
 
-        /* עיטורים גרפיים עדינים בצדדים */
-        .invitation-card::before, .invitation-card::after {
-            content: "";
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            opacity: 0.3;
-        }
-        .invitation-card::before {
-            top: 15px;
-            right: 15px;
-            border-top: 2px solid #c5a880;
-            border-right: 2px solid #c5a880;
-        }
-        .invitation-card::after {
-            bottom: 15px;
-            left: 15px;
-            border-bottom: 2px solid #c5a880;
-            border-left: 2px solid #c5a880;
-        }
-
-        /* כותרות וטקסט */
-        .bsd {
-            font-size: 14px;
-            color: #8c8c8c;
-            margin-bottom: 20px;
-        }
-        
-        .header-quote {
-            font-style: italic;
-            font-size: 16px;
-            color: #c5a880;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #ba9663;
-            margin: 15px 0;
-            font-weight: normal;
-        }
-
-        .names {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333333;
-            margin: 20px 0;
-        }
-
-        .details-table {
+        /* מכל מרכזי המגביל את רוחב ההזמנה וממרכז אותה */
+        .page-container {
+            max-width: 600px;
             width: 100%;
-            margin: 25px 0;
-            border-collapse: collapse;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .details-table td {
-            padding: 10px;
-            border-bottom: 1px dashed #f0e6d8;
-            font-size: 16px;
-        }
-
-        .details-table td:first-child {
-            color: #ba9663;
-            font-weight: bold;
-            width: 25%;
-        }
-
-        /* עיצוב הטיימר */
-        .timer-container {
-            margin-top: 35px;
-            padding: 20px;
-            background-color: #faf6f0;
+        /* הצגת תמונת ההזמנה בצורה רספונסיבית ושמירה על איכות */
+        .invitation-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border-radius: 4px;
-            border: 1px solid #ede4d7;
         }
 
-        .timer-title {
-            font-size: 16px;
-            color: #7a6e5d;
+        /* אזור הטיימר המותאם לניידים */
+        .timer-section {
+            width: 100%;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            padding: 20px 10px;
+            background-color: #ffffff;
+            border: 1px solid #e6dfd5;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            border-radius: 4px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .timer-heading {
+            font-size: 15px;
+            color: #666666;
             margin-bottom: 15px;
-            letter-spacing: 1px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
 
-        .countdown {
+        /* שימוש ב-Flexbox עם עטיפה למניעת חריגה במסכים קטנים */
+        .countdown-display {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            flex-wrap: wrap; 
+            gap: 10px;
         }
 
-        .time-box {
-            background: #ffffff;
-            border: 1px solid #e6dcce;
-            padding: 10px 15px;
+        .countdown-box {
+            background: #faf8f5;
+            border: 1px solid #ede5db;
+            padding: 8px 0;
             border-radius: 4px;
-            min-width: 60px;
+            width: 70px; /* רוחב קבוע ובטוח לכל סוגי המסכים */
+            box-sizing: border-box;
         }
 
-        .time-num {
-            font-size: 24px;
+        .digit {
+            font-size: 22px;
             font-weight: bold;
-            color: #ba9663;
+            color: #b59469;
             display: block;
         }
 
-        .time-label {
-            font-size: 12px;
+        .label {
+            font-size: 11px;
             color: #8c8c8c;
+        }
+
+        /* התאמה למסכים קטנים מאוד (טלפונים ניידים) */
+        @media (max-width: 480px) {
+            .countdown-box {
+                width: 60px;
+            }
+            .digit {
+                font-size: 18px;
+            }
+            .timer-section {
+                padding: 15px 5px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-card">
-        <div class="bsd">בס"ד</div>
-        <div class="header-quote">"נעלה את ירושלים על ראש שמחתנו"</div>
+    <div class="page-container">
         
-        <div>בשבח והודיה להשי"ת על כל הטוב אשר גמלנו,</div>
-        <div>מתכבדים אנו להזמינכם להשתתף בשמחת כלולות בנינו היקרים</div>
+        <img src="wedding-invitation.png" alt="הזמנה לחתונה" class="invitation-image">
 
-        <div class="names">
-            ישראל יעקב <span style="font-size: 18px; color:#ba9663;">עב"ג</span> מלכה
-        </div>
-
-        <p>שתתקיים אי"ה בשעה טובה ומוצלחת</p>
-
-        <!-- טבלת פרטי האירוע -->
-        <table class="details-table">
-            <tr>
-                <td>מתי?</td>
-                <td>יום חמישי, ג' תמוז תשפ"ו (18.06.2026)</td>
-            </tr>
-            <tr>
-                <td>חופה</td>
-                <td>בשעה 6:30 בערב</td>
-            </tr>
-            <tr>
-                <td>איפה?</td>
-                <td>אולמי "דיימונד", שדרות יחזקאל 2, מודיעין עילית</td>
-            </tr>
-        </table>
-
-        <div>נשמח לראותכם משתתפים בשמחתנו!</div>
-
-        <!-- רכיב הטיימר -->
-        <div class="timer-container">
-            <div class="timer-title" id="timer-status">הזמן שנותר לחתונה:</div>
-            <div class="countdown" id="countdown-timer">
-                <div class="time-box">
-                    <span class="time-num" id="days">00</span>
-                    <span class="time-label">ימים</span>
+        <div class="timer-section">
+            <div class="timer-heading" id="timer-status">הזמן שנותר לחתונה:</div>
+            <div class="countdown-display" id="countdown-timer">
+                 <div class="countdown-box">
+                    <span class="digit" id="seconds">00</span>
+                    <span class="label">שניות</span>
                 </div>
-                <div class="time-box">
-                    <span class="time-num" id="hours">00</span>
-                    <span class="time-label">שעות</span>
+				 <div class="countdown-box">
+                    <span class="digit" id="minutes">00</span>
+                    <span class="label">דקות</span>
                 </div>
-                <div class="time-box">
-                    <span class="time-num" id="minutes">00</span>
-                    <span class="time-label">דקות</span>
+				<div class="countdown-box">
+                    <span class="digit" id="hours">00</span>
+                    <span class="label">שעות</span>
                 </div>
-                <div class="time-box">
-                    <span class="time-num" id="seconds">00</span>
-                    <span class="time-label">שניות</span>
+				<div class="countdown-box">
+                    <span class="digit" id="days">00</span>
+                    <span class="label">ימים</span>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- קוד ה-JavaScript שמפעיל את הטיימר -->
     <script>
-        // הגדרת תאריך היעד: 18 ביוני 2026 בשעה 18:30
+        // הגדרת תאריך היעד: ג' תמוז תשפ"ו (18.06.2026) בשעה 18:30
         const weddingDate = new Date("June 18, 2026 18:30:00").getTime();
 
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
-            // חישוב הזמן לימים, שעות, דקות ושניות
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // הצגת התוצאה באלמנטים המתאימים
             document.getElementById("days").innerText = String(days).padStart(2, '0');
             document.getElementById("hours").innerText = String(hours).padStart(2, '0');
             document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
             document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
 
-            // אם הזמן עבר, נציג הודעת מזל טוב
             if (distance < 0) {
                 clearInterval(timerInterval);
                 document.getElementById("timer-status").innerText = "קול ששון וקול שמחה!";
